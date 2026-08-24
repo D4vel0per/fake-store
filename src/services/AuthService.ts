@@ -1,25 +1,43 @@
-import { Injectable, Service, signal } from "@angular/core";
+import { computed, inject, Injectable, Service, signal } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { catchError, firstValueFrom, tap, throwError } from "rxjs";
 
 @Injectable({
-    providedIn: "root"
+    providedIn: 'root'
 })
 export class AuthService {
-    private authenticated = false;
-    isAuthenticated () {
-        return this.authenticated
-    }
-    async authenticate (username: string, password: string) {
-        const res = await fetch('https://fakestoreapi.com/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                username, password
-            })
-        })
-        if (!res.ok) {
-            this.authenticated = false; return;
-        }
-        this.authenticated = true;
-    }
+    private authSignal = signal<boolean>(false);
+    isAuthenticated = this.authSignal.asReadonly();
+    constructor (private client: HttpClient) {}
 
+    async authenticate (username: string, password: string) {
+        const res = this.client.post('https://fakestoreapi.com/auth/login', 
+            { username, password },
+            {
+                headers: { 'Content-Type': 'application/json' }
+            }
+        )
+
+        try {
+            await firstValueFrom(res)
+            this.authSignal.set(true)
+        } catch {
+            this.authSignal.set(false)
+        }
+    }
+    async signIn (username: string, password: string) {
+        const res = this.client.post('https://fakestoreapi.com/users', 
+            { username, password, email: "" },
+            {
+                headers: { 'Content-Type': 'application/json' }
+            }
+        )
+        try {
+            await firstValueFrom(res)
+            this.authSignal.set(true)
+        } catch {
+            this.authSignal.set(false)
+        }
+        
+    }
 }
