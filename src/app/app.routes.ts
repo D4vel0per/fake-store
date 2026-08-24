@@ -26,7 +26,7 @@ export const routes: Routes = [
         component: DashboardLayout,
         children: [
             { path: '', component: DashboardPage },
-            { path: 'cart', component: CartsPage },
+            { path: 'carts', component: CartsPage },
             { path: 'product/:productId', component: ProductDetailPage }
         ]
     },

@@ -1,13 +1,15 @@
 import { Component, output } from "@angular/core";
-
-const CATEGORY_OPTIONS = ["Vintage", "Modern", "New-Style"] as const;
-type Category = typeof CATEGORY_OPTIONS[number];
+import { CATEGORIES } from "../../types/Product";
+import { TitleCasePipe } from "@angular/common";
 
 @Component({
     selector: "searchbar",
     template: `
     <div class="searchbar">
-        <input type="search" placeholder="Search products" />
+        <input
+            type="search"
+            placeholder="Search products"
+            (input)="handleSearch($event)" />
         <button
             type="button"
             class="category-button"
@@ -23,26 +25,37 @@ type Category = typeof CATEGORY_OPTIONS[number];
                             type="checkbox"
                             [checked]="selectedCategories.includes(category)"
                             (change)="toggleCategory(category)" />
-                        {{ category }}
+                        {{ category | titlecase}}
                     </label>
                 }
             </div>
         }
     </div>
     `,
-    styleUrl: "./styles/searchbar.css"
+    styleUrl: "./styles/searchbar.css",
+    imports: [TitleCasePipe]
 })
 export class SearchbarComponent {
-    categoryOptions = CATEGORY_OPTIONS;
-    selectedCategories: Category[] = [];
+    categoryOptions = [
+        CATEGORIES.ELECTRONICS,
+        CATEGORIES.JEWEL,
+        CATEGORIES.MEN,
+        CATEGORIES.WOMAN
+    ];
+    selectedCategories: CATEGORIES[] = [];
     categoriesOpen = false;
-    categoriesChanged = output<string[]>();
+    categoriesChanged = output<CATEGORIES[]>();
+    searchTermChanged = output<string>();
 
     toggleCategories() {
         this.categoriesOpen = !this.categoriesOpen;
     }
 
-    toggleCategory(category: Category) {
+    handleSearch(event: Event) {
+        this.searchTermChanged.emit((event.target as HTMLInputElement).value);
+    }
+
+    toggleCategory(category: CATEGORIES) {
         if (this.selectedCategories.includes(category)) {
             this.selectedCategories = this.selectedCategories.filter(
                 selectedCategory => selectedCategory !== category
