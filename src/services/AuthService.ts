@@ -1,13 +1,15 @@
-import { Service, signal } from "@angular/core";
+import { Injectable, Service, signal } from "@angular/core";
 
-@Service()
+@Injectable({
+    providedIn: "root"
+})
 export class AuthService {
     private authenticated = false;
     isAuthenticated () {
         return this.authenticated
     }
     async authenticate (username: string, password: string) {
-        const res =await fetch('https://fakestoreapi.com/auth/login', {
+        const res = await fetch('https://fakestoreapi.com/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

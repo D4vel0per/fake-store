@@ -1,0 +1,7 @@
+.container-centered {
+    display: flex;
+    justify-content: center;
+    padding: 10vh 10vw 10vh 10vw;
+    flex-direction: column;
+    width: 100%;
+}
