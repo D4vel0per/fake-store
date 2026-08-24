@@ -1,0 +1,112 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 1.5rem 2rem;
+    color: #252525;
+    background: #f6fafb;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 1.25rem;
+    border: 1px solid #c8c8c8;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    box-shadow: 0 0.2rem 0.25rem rgb(0 0 0 / 12%);
+}
+
+.dashboard-header a {
+    color: #1686a0;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 160ms ease;
+}
+
+.dashboard-header a:hover,
+.dashboard-header a:focus-visible {
+    color: #0b5367;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.cart-count,
+.cart-total,
+.selected-count {
+    color: #48545a;
+    font-size: 0.85em;
+    font-weight: 400;
+}
+
+.cart-total {
+    margin-left: 0.35rem;
+    color: #0b5367;
+    font-weight: 700;
+}
+
+searchbar {
+    display: block;
+    min-width: 18rem;
+    width: 50%;
+}
+
+.logout-button {
+    min-height: 2.5rem;
+    margin-left: auto;
+    padding: 0 0.85rem;
+    border: 1px solid #b34b4b;
+    border-radius: 0.35rem;
+    background: #c44d4d;
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.logout-button:hover,
+.logout-button:focus-visible {
+    border-color: #762626;
+    background: #9a3838;
+}
+
+.logout-button:focus-visible {
+    outline: 2px solid #e28b8b;
+    outline-offset: 2px;
+}
+
+h1 {
+    margin: 2rem 0 1rem;
+    color: #172027;
+}
+
+.selected-count {
+    vertical-align: middle;
+}
+
+@media (max-width: 30rem) {
+    :host {
+        padding: 1rem;
+    }
+
+    .dashboard-header {
+        flex-wrap: wrap;
+    }
+
+    searchbar {
+        min-width: 0;
+        width: 100%;
+        order: 3;
+    }
+
+    .logout-button {
+        order: 2;
+    }
+}
