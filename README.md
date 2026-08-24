@@ -13,7 +13,7 @@ Aplicación desplegada en Vercel: [FakeStore en vivo](https://fake-store-eight-h
 - Angular Router para la navegación y las rutas protegidas
 - `ngx-owl-carousel-o` instalado para soporte de carruseles
 - Fake Store API como fuente de productos y autenticación
-- `localStorage` para persistir la sesión y el carrito
+- `localStorage` para persistir la sesión y el carrito (es bien sabido que esto no es método seguro pero no se tenía más alternativa)
 
 ## Funcionalidades
 
@@ -29,11 +29,11 @@ Aplicación desplegada en Vercel: [FakeStore en vivo](https://fake-store-eight-h
 
 ### Catálogo
 
-- Consulta y renderizado de todos los productos.
+- Consulta de todos los productos.
 - Grid responsive de productos: tres columnas en pantallas grandes y una en móvil.
 - Búsqueda parcial y sin distinción entre mayúsculas y minúsculas sobre el título, descripción y categoría.
 - Filtro por una o varias categorías.
-- Contador de unidades seleccionadas visible en el encabezado.
+- Contador de unidades seleccionadas visible en el header.
 - Enlace desde el nombre de cada producto hacia su página de detalles.
 
 ### Detalles de producto
@@ -71,6 +71,9 @@ src/
 │   │   ├── product-hero.ts      # Información principal del producto
 │   │   ├── product-related.ts   # Productos relacionados
 │   │   ├── products.detail.ts   # Coordinación de la página de detalles
+|   |   ├── page.ts              # Página de productos principal
+|   |   ├── layout.ts            # Componente contenedor de la navegación
+|   |   ├── carts.ts             # Página para la administración del carrito
 │   │   └── styles/              # Estilos del layout y sus componentes
 │   ├── app.config.ts            # Providers globales
 │   └── app.routes.ts            # Configuración de rutas
@@ -133,14 +136,6 @@ npm run build
 
 Los artefactos compilados se generan en la carpeta `dist/`.
 
-## Pruebas
-
-Ejecuta las pruebas unitarias con:
-
-```bash
-npm test
-```
-
 ## API
 
 La aplicación consume los siguientes recursos públicos de Fake Store API:
@@ -152,8 +147,7 @@ La aplicación consume los siguientes recursos públicos de Fake Store API:
 
 ## Decisiones técnicas
 
-- Se utilizan standalone components, sin `NgModule` de aplicación.
-- Signals centralizan el estado de autenticación, productos filtrados y carrito.
+- Signals centralizan el estado de toda propiedad asíncrona.
 - El token y el carrito se restauran directamente desde `localStorage`.
 - Los interceptores y guards usan las APIs funcionales de Angular.
 - La página de detalles se divide en componentes `ProductHeroComponent` y `ProductRelatedComponent` para aislar los cambios de cada sección.
