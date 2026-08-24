@@ -2,6 +2,8 @@
 
 Aplicación SPA de e-commerce desarrollada con Angular y [Fake Store API](https://fakestoreapi.com/). Incluye autenticación, catálogo de productos, filtros, búsqueda, detalles de producto y carrito persistente.
 
+Aplicación desplegada en Vercel: [FakeStore en vivo](https://fake-store-eight-hazel.vercel.app)
+
 ## Stack tecnológico
 
 - Angular 22 con standalone components
@@ -88,6 +90,15 @@ src/
 
 - Node.js compatible con Angular 22
 - npm
+
+## Credenciales de prueba
+
+Puedes utilizar las siguientes credenciales de Fake Store API para iniciar sesión:
+
+```text
+Usuario: johnd
+Contraseña: m38rmF$
+```
 
 ## Instalación
 
