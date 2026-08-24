@@ -1,0 +1,62 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 1.5rem 2rem;
+    color: #252525;
+    background: #f6fafb;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 1.25rem;
+    border: 1px solid #c8c8c8;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    box-shadow: 0 0.2rem 0.25rem rgb(0 0 0 / 12%);
+}
+
+.dashboard-header a {
+    color: #1686a0;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 160ms ease;
+}
+
+.dashboard-header a:hover,
+.dashboard-header a:focus-visible {
+    color: #0b5367;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+searchbar {
+    display: block;
+    width: 50%;
+}
+
+h1 {
+    margin: 2rem 0 1rem;
+    color: #172027;
+}
+
+@media (max-width: 30rem) {
+    :host {
+        padding: 1rem;
+    }
+
+    .dashboard-header {
+        flex-wrap: wrap;
+    }
+
+    searchbar {
+        width: 100%;
+        order: 3;
+    }
+}

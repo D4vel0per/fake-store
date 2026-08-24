@@ -2,7 +2,9 @@ import { Component } from "@angular/core";
 
 @Component({
     selector: "dashboard-page",
-    templateUrl: "./page.html"
+    template: `
+    <h2>Page</h2>
+`
 })
 export class DashboardPage {
     
