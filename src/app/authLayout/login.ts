@@ -44,8 +44,8 @@ export class LoginComponent {
     error = signal<boolean>(false)
     toggle = output()
     formGroup = new FormGroup({
-        username: new FormControl('', [ Validators.required, Validators.pattern(/^[a-z0-9\.\-\$]+$/i) ]),
-        password: new FormControl('', [ Validators.required, Validators.pattern(/^[a-z0-9\.\-\$]+$/i) ])
+        username: new FormControl('johnd', [ Validators.required, Validators.pattern(/^[a-z0-9\.\-\$]+$/i) ]),
+        password: new FormControl('m38rmF$', [ Validators.required, Validators.pattern(/^[a-z0-9\.\-\$]+$/i) ])
     })
     handleToggle () {
         this.toggle.emit()
