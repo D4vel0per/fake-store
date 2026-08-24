@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '../services/auth.guard';
 import { AuthLayout } from './authLayout/layout';
-import { DashboardLayout } from './dashboardLayout/layout';
 import { AuthPage } from './authLayout/page';
-import { DashboardPage } from './dashboardLayout/page';
-import { CartsPage } from './dashboardLayout/carts';
-import { ProductDetailPage } from './dashboardLayout/products.detail';
 
 export const routes: Routes = [
     {
@@ -23,11 +19,20 @@ export const routes: Routes = [
     {
         path: "dashboard", // Dashboard layout
         canActivate: [authGuard],
-        component: DashboardLayout,
+        loadComponent: () => import('./dashboardLayout/layout').then(module => module.DashboardLayout),
         children: [
-            { path: '', component: DashboardPage },
-            { path: 'carts', component: CartsPage },
-            { path: 'product/:productId', component: ProductDetailPage }
+            {
+                path: '',
+                loadComponent: () => import('./dashboardLayout/page').then(module => module.DashboardPage)
+            },
+            {
+                path: 'carts',
+                loadComponent: () => import('./dashboardLayout/carts').then(module => module.CartsPage)
+            },
+            {
+                path: 'product/:productId',
+                loadComponent: () => import('./dashboardLayout/products.detail').then(module => module.ProductDetailPage)
+            }
         ]
     },
     { path: "", redirectTo: "/dashboard", pathMatch: 'full' },
