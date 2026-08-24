@@ -5,9 +5,6 @@ import { DashboardLayout } from './dashboardLayout/layout';
 import { AuthPage } from './authLayout/page';
 import { DashboardPage } from './dashboardLayout/page';
 import { CartsPage } from './dashboardLayout/carts';
-import { CartAddPage } from './dashboardLayout/carts.add';
-import { CartEditPage } from './dashboardLayout/carts.edit';
-import { ProductsPage } from './dashboardLayout/products';
 import { ProductDetailPage } from './dashboardLayout/products.detail';
 
 export const routes: Routes = [
@@ -30,13 +27,9 @@ export const routes: Routes = [
         children: [
             { path: '', component: DashboardPage },
             { path: 'carts', component: CartsPage },
-            { path: 'carts/add', component: CartAddPage },
-            { path: 'carts/edit/:cartId', component: CartEditPage },
-            { path: 'products', component: ProductsPage },
-            { path: 'products/:productId', component: ProductDetailPage }
+            { path: 'product/:productId', component: ProductDetailPage }
         ]
     },
     { path: "", redirectTo: "/dashboard", pathMatch: 'full' },
     { path: "**", redirectTo: "/dashboard" }
-
 ];

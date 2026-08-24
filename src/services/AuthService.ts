@@ -1,13 +1,17 @@
-import { computed, inject, Injectable, Service, signal } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError, firstValueFrom, tap, throwError } from "rxjs";
+import { computed, Injectable, signal } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom} from "rxjs";
+import { Token } from "../types/Token";
+
+const AUTH_TOKEN_KEY = "authToken";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private authSignal = signal<boolean>(false);
-    isAuthenticated = this.authSignal.asReadonly();
+    private authSignal = signal<Token|null>(this.loadToken());
+    getToken = this.authSignal.asReadonly()
+    isAuthenticated = computed(() => !!this.authSignal())
     constructor (private client: HttpClient) {}
 
     async authenticate (username: string, password: string) {
@@ -19,10 +23,14 @@ export class AuthService {
         )
 
         try {
-            await firstValueFrom(res)
-            this.authSignal.set(true)
+            const val = await firstValueFrom(res)
+            
+            const token = val as Token;
+            this.authSignal.set(token);
+            this.saveToken(token);
         } catch {
-            this.authSignal.set(false)
+            this.authSignal.set(null)
+            this.clearToken();
         }
     }
     async signIn (username: string, password: string) {
@@ -33,11 +41,41 @@ export class AuthService {
             }
         )
         try {
-            await firstValueFrom(res)
-            this.authSignal.set(true)
+            const val = await firstValueFrom(res)
+            const token = val as Token;
+            this.authSignal.set(token);
+            this.saveToken(token);
         } catch {
-            this.authSignal.set(false)
+            this.authSignal.set(null)
+            this.clearToken();
         }
-        
+    }
+
+    logout() {
+        this.authSignal.set(null);
+        this.clearToken();
+    }
+
+    private loadToken(): Token|null {
+        const storedToken = localStorage.getItem(AUTH_TOKEN_KEY);
+
+        if (!storedToken) {
+            return null;
+        }
+
+        try {
+            return JSON.parse(storedToken) as Token;
+        } catch {
+            this.clearToken();
+            return null;
+        }
+    }
+
+    private saveToken(token: Token) {
+        localStorage.setItem(AUTH_TOKEN_KEY, JSON.stringify(token));
+    }
+
+    private clearToken() {
+        localStorage.removeItem(AUTH_TOKEN_KEY);
     }
 }

@@ -1,0 +1,66 @@
+.related-products {
+    margin-top: 2rem;
+}
+
+.related-products h2 {
+    margin: 0 0 1rem;
+    color: #172027;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.related-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 1rem;
+    border: 1px solid #c8d9df;
+    border-radius: 0.5rem;
+    background: #ffffff;
+}
+
+.related-card img {
+    width: 100%;
+    height: 10rem;
+    object-fit: contain;
+}
+
+.related-card a {
+    color: #0b5367;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.related-card a:hover,
+.related-card a:focus-visible {
+    color: #1686a0;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.related-card p {
+    margin: 0;
+    color: #48545a;
+}
+
+.status {
+    color: #48545a;
+}
+
+@media (max-width: 48rem) {
+    .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 30rem) {
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+}
