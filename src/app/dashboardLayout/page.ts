@@ -12,7 +12,25 @@ import { CartService } from "../../services/CartService";
             <h2>Products</h2>
 
             @if (products.isLoading()) {
-                <p class="status">Loading products...</p>
+                <section class="product-grid product-grid-skeleton" aria-label="Loading products" aria-busy="true">
+                    @for (skeleton of skeletonProducts; track skeleton) {
+                        <article class="product-card skeleton-card" aria-hidden="true">
+                            <div class="skeleton-image"></div>
+                            <div class="product-content">
+                                <div class="skeleton-line skeleton-id"></div>
+                                <div class="skeleton-line skeleton-title"></div>
+                                <div class="skeleton-line skeleton-category"></div>
+                                <div class="skeleton-line skeleton-description"></div>
+                                <div class="skeleton-line skeleton-description skeleton-description-short"></div>
+                                <div class="skeleton-line skeleton-price"></div>
+                                <div class="skeleton-actions">
+                                    <div class="skeleton-button"></div>
+                                    <div class="skeleton-button"></div>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </section>
             } @else {
                 <section class="product-grid" aria-label="All products">
                     @for (product of productList(); track product.id) {
@@ -48,6 +66,7 @@ import { CartService } from "../../services/CartService";
     imports: [RouterLink]
 })
 export class DashboardPage {
+    skeletonProducts = Array.from({ length: 6 }, (_, index) => index);
     providerService = inject(ProviderService);
     cartService = inject(CartService);
 
